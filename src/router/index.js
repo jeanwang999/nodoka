@@ -19,6 +19,7 @@ const routes = [
     path: '/login',
     component: () => import('../views/LoginPage.vue'),
   },
+  // dashboard
   {
     path: '/dashboard',
     component: () => import('../views/DashBoard.vue'),
@@ -27,12 +28,40 @@ const routes = [
         path: 'products',
         component: () => import('../views/ProductsPage.vue'),
       },
+      {
+        path: 'orders',
+        component: () => import('../views/OrdersPage.vue'),
+      },
+      {
+        path: 'coupons',
+        component: () => import('../views/CouponsPage.vue'),
+      },
+    ],
+  },
+  // user
+  {
+    path: '/user',
+    component: () => import('../views/UserBoard.vue'),
+    children: [
+      {
+        path: 'cart',
+        component: () => import('../views/UserCart.vue'),
+      },
+      {
+        path: 'product/:productId',
+        component: () => import('../views/UserProduct.vue'),
+      },
+      {
+        path: 'checkout/:orderId',
+        component: () => import('../views/UserCheckout.vue'),
+      },
     ],
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
+  linkActiveClass: 'active',
   routes,
 });
 

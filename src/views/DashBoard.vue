@@ -1,15 +1,24 @@
 <template>
   <Navbar></Navbar>
-  <h3>Dashboard</h3>
-  <router-view/>
-
+  <div class="container-fluid position-relative">
+    <ToastMessages></ToastMessages>
+    <router-view/>
+  </div>
 </template>
 <script>
+import emitter from '../methods/emitter';
+import ToastMessages from '../components/ToastMessages.vue';
 import Navbar from '../components/NavbarComp.vue';
 
 export default {
   components: {
     Navbar,
+    ToastMessages,
+  },
+  provide() {
+    return {
+      emitter,
+    };
   },
   created() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');

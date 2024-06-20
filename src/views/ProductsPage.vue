@@ -1,5 +1,4 @@
 <template>
-
 <!-- vue-loading-overlay -->
 <LoadingCp :active="isLoading"></LoadingCp>
 
@@ -24,10 +23,10 @@
       <td>{{item.category}}</td>
       <td>{{item.title}}</td>
       <td class="text-right">
-        {{item.origin_price }}
+        {{$filters.currency(item.origin_price) }}
       </td>
       <td class="text-right">
-        {{ item.price }}
+        {{ $filters.currency(item.price) }}
       </td>
       <td>
         <span class="text-success" v-if="item.is_enabled">啟用</span>
@@ -44,24 +43,31 @@
     </tr>
   </tbody>
 </table>
+
+<PaginationCp :pages="pagination" @emit-pages="getProducts"></PaginationCp>
+
 <ProductModal ref="productModal"
 :product="tempProduct"
 @update-product="updateProduct"></ProductModal>
+
 <DelModal ref="delModal"
 :item="tempProduct" @del-item="delProduct"></DelModal>
+
 </template>
 
 <script>
 // import LoadingPlugin from 'vue-loading-overlay';
 // import 'vue-loading-overlay/dist/css/index.css';
 import ProductModal from '../components/ProductModal.vue';
+import PaginationCp from '../components/PaginationCp.vue';
 import DelModal from '../components/DelModal.vue';
+// import { currency } from '../methods/filters';
 
 export default {
   data() {
     return {
       products: [],
-      paginagtion: {},
+      pagination: {},
       tempProduct: {},
       isNew: false,
       isLoading: false,
@@ -70,18 +76,21 @@ export default {
   components: { // 區域註冊
     ProductModal,
     DelModal,
+    PaginationCp,
   },
+  inject: ['emitter'],
   methods: {
-    getProducts() { // 帶入產品資料
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
+    // currency,
+    getProducts(page = 1) { // 帶入產品資料
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
       this.isLoading = true;
       this.$http.get(api)
         .then((res) => {
           this.isLoading = false;
           if (res.data.success) {
-            // console.log(res.data);
+            console.log(res.data);
             this.products = res.data.products;
-            this.pagination = res.data.paginagtion;
+            this.pagination = res.data.pagination;
           }
         });
     },
@@ -128,7 +137,20 @@ export default {
         .then((response) => { // 使用method 傳送資料至api
           console.log(response);
           productComponent.hideModal(); // 關掉Modal
-          this.getProducts(); // 帶入產品資料
+          if (response.data.success) {
+            this.getProducts();// 帶入產品資料
+            this.emitter.emit('push-message', { // 觸發push-message事件
+              style: 'success',
+              title: '更新成功',
+            });
+          } else {
+            this.emitter.emit('push-message', {
+              style: 'danger',
+              title: '更新失敗',
+              content: response.data.message.join('、'),
+              // content 失敗的訊息內容 從後端傳來的
+            });
+          }
         });
     },
 
