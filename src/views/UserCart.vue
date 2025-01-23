@@ -157,7 +157,7 @@
                     v-model="form.message"></textarea>
         </div>
         <div class="text-end">
-          <button class="btn btn-danger">送出訂單</button>
+          <button class="btn btn-danger" @click="createOrder(0)">送出訂單</button>
         </div>
       </FormCp>
     </div>
@@ -184,6 +184,7 @@ export default {
         },
         message: '',
       },
+      orderId: '',
     };
   },
   methods: {
@@ -197,7 +198,7 @@ export default {
       });
     },
     getProduct(id) {
-      this.$router.push(`/user/product/${id}`);
+      this.$router.push(`/product/${id}`);
     },
     addCart(id) {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
@@ -269,6 +270,14 @@ export default {
         .then((res) => {
           console.log(res);
           this.$httpMessageState(res, '新增訂單');
+          // eslint-disable-next-line prefer-destructuring
+          const orderId = res.data.orderId;
+          console.log(orderId);
+          // 假设这里是你返回的 orderId
+          const checkoutRoute = { name: 'checkout', params: { orderId } };
+          // 要使用指定路由名稱 (物件搭配 name 屬性 )進行頁面跳轉，在路由表也需要定義 name 屬性才可以正確配對。
+
+          this.$router.push(checkoutRoute);
         });
     },
   },

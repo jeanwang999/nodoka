@@ -53,6 +53,7 @@
         <div class="text-end" v-if="order.is_paid === false">
           <button class="btn btn-danger">確認付款去</button>
         </div>
+        <!-- 這個button 還沒付款才會顯示 -->
       </form>
     </div>
   </template>

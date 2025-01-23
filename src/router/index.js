@@ -1,24 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+// import HomeView from '../views/HomeView.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
   {
     path: '/login',
     component: () => import('../views/LoginPage.vue'),
   },
+
   // dashboard
   {
     path: '/dashboard',
@@ -40,7 +28,7 @@ const routes = [
   },
   // user
   {
-    path: '/user',
+    path: '/',
     component: () => import('../views/UserBoard.vue'),
     children: [
       {
@@ -54,6 +42,8 @@ const routes = [
       {
         path: 'checkout/:orderId',
         component: () => import('../views/UserCheckout.vue'),
+        name: 'checkout',
+        // 要使用指定路由名稱 (物件搭配 name 屬性 )進行頁面跳轉，在路由表也需要定義 name 屬性才可以正確配對。
       },
     ],
   },
