@@ -8,7 +8,7 @@
 <script>
 import emitter from '../methods/emitter';
 import ToastMessages from '../components/ToastMessages.vue';
-import Navbar from '../components/NavbarComp.vue';
+import Navbar from '../components/Dashboard/NavbarComp.vue';
 
 export default {
   components: {

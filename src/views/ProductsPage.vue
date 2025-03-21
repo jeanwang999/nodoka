@@ -7,10 +7,21 @@
   @click="openModal(true)">
   增加一個產品</button>
 </div>
+<div>
+  <input type="text" name="" id="" v-model="tempCategory">
+  <button class="btn btn-primary" type="button"
+  @click="addCategory(tempCategory)">
+  新增分類</button>
+</div>
+<!-- <div>
+  <input type="radio" name="" id="" v-for="item in products" :key="item.id">
+  <label for="">{{ item.category }}</label>
+</div> -->
 <table class="table mt-4">
   <thead>
     <tr>
       <th width="120">分類</th>
+      <th>圖片</th>
       <th>產品名稱</th>
       <th width="120">原價</th>
       <th width="120">售價</th>
@@ -21,6 +32,7 @@
   <tbody>
     <tr v-for="item in products" :key="item.id">
       <td>{{item.category}}</td>
+      <td><img :src="`${item.imageUrl}`" alt="" style="height:100px"></td>
       <td>{{item.title}}</td>
       <td class="text-right">
         {{$filters.currency(item.origin_price) }}
@@ -71,6 +83,7 @@ export default {
       tempProduct: {},
       isNew: false,
       isLoading: false,
+      // selectCategory: '',
     };
   },
   components: { // 區域註冊
@@ -79,7 +92,15 @@ export default {
     PaginationCp,
   },
   inject: ['emitter'],
+  // computed: {
+  //   filterCategory() {
+  //     return this.products.filter((item) => item.name.match(this.selectCategory));
+  //   },
+  // },
   methods: {
+    addCategory() {
+
+    },
     // currency,
     getProducts(page = 1) { // 帶入產品資料
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;

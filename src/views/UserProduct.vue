@@ -1,6 +1,6 @@
 <template>
     <LoadingCp :active="isLoading"></LoadingCp>
-    <div class="container">
+    <div class="container product-single-page" >
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><router-link to="/user/cart">購物車</router-link></li>
@@ -9,12 +9,12 @@
       </nav>
       <div class="row justify-content-center">
         <article class="col-8">
-          <h2>{{ product.title }}</h2>
-          <div>{{ product.content }}</div>
-          <div>{{ product.description }}</div>
           <img :src="product.imageUrl" alt="" class="img-fluid mb-3">
         </article>
         <div class="col-4">
+          <h2>{{ product.title }}</h2>
+          <div>{{ product.content }}</div>
+          <div>{{ product.description }}</div>
           <div class="h5" v-if="!product.price">{{ product.origin_price }} 元</div>
           <del class="h6" v-if="product.price">原價 {{ product.origin_price }} 元</del>
           <div class="h5" v-if="product.price">現在只要 {{ product.price }} 元</div>
@@ -47,6 +47,7 @@ export default {
       },
     };
   },
+
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
@@ -71,7 +72,7 @@ export default {
       this.$http.post(url, { data: cart }).then((response) => {
         this.isLoading = false;
         this.$httpMessageState(response, '加入購物車');
-        this.$router.push('/user/cart');
+        this.$router.push('/cart');
         this.status.loadingItem = '';
       });
     },
@@ -82,3 +83,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+article h2{
+  color: red;
+}
+.product-single-page nav{
+  margin-bottom: 20px;
+  border-bottom: #ccc solid 1px ;
+}
+</style>

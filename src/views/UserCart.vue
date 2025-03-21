@@ -1,53 +1,9 @@
 <template>
     <LoadingCp :active="isLoading"></LoadingCp>
-    <div class="container">
+    <div class="container justify-content-center">
       <div class="row mt-4">
-        <!-- 產品列表 -->
-        <div class="col-md-8">
-          <table class="table align-middle">
-            <thead>
-            <tr>
-              <th>圖片</th>
-              <th>商品名稱</th>
-              <th>價格</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in products" :key="item.id">
-              <td style="width: 200px">
-                <div style="height: 100px; background-size: cover; background-position: center"
-                    :style="{backgroundImage: `url(${item.imageUrl})`}"></div>
-              </td>
-              <td><a href="#" class="text-dark">{{ item.title }}</a></td>
-              <td>
-                <div class="h5" v-if="!item.price">{{ item.origin_price }} 元</div>
-                <del class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</del>
-                <div class="h5" v-if="item.price">現在只要 {{ item.price }} 元</div>
-              </td>
-              <td>
-                <div class="btn-group btn-group-sm">
-                  <button type="button" class="btn btn-outline-secondary"
-                          @click="getProduct(item.id)">
-                    查看更多
-                  </button>
-                  <button type="button" class="btn btn-outline-danger"
-                  :disabled="this.status.loadingItem === item.id"
-                        @click="addCart(item.id)">
-                  <div v-if="this.status.loadingItem === item.id"
-                      class="spinner-grow text-danger spinner-grow-sm" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                    加到購物車
-                  </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
         <!-- 購物車列表 -->
-        <div class="col-md-4">
+        <div class="col-md-8">
         <div class="sticky-top">
           <table class="table align-middle">
             <thead>
@@ -56,18 +12,13 @@
                 <th>品名</th>
                 <th style="width: 110px">數量</th>
                 <th>單價</th>
+                <th>刪除</th>
               </tr>
             </thead>
             <tbody>
             <template v-if="cart.carts">
               <tr v-for="item in cart.carts" :key="item.id">
-                <td>
-                  <button type="button" class="btn btn-outline-danger btn-sm"
-                          :disabled="status.loadingItem === item.id"
-                          @click="removeCartItem(item.id)">
-                    <i class="bi bi-x"></i>
-                  </button>
-                </td>
+                <td><img :src="`${item.product.imageUrl}`" alt="" style="height: 100px;"></td>
                 <td>
                   {{ item.product.title }}
                   <div class="text-success" v-if="item.coupon">
@@ -86,6 +37,13 @@
                 <td class="text-end">
                   <small v-if="cart.final_total !== cart.total" class="text-success">折扣價：</small>
                   {{ $filters.currency(item.final_total) }}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-outline-danger btn-sm"
+                          :disabled="status.loadingItem === item.id"
+                          @click="removeCartItem(item.id)">
+                    <i class="bi bi-x"></i>
+                  </button>
                 </td>
               </tr>
             </template>
@@ -111,10 +69,11 @@
           </div>
         </div>
         </div>
+
       </div>
+
       <!-- form 表單 -->
-      <div class="my-5 row justify-content-center">
-      <FormCp class="col-md-6" v-slot="{ errors }"
+      <FormCp class="col-md-6 my-6" v-slot="{ errors }"
             @submit="createOrder">
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -160,7 +119,6 @@
           <button class="btn btn-danger" @click="createOrder(0)">送出訂單</button>
         </div>
       </FormCp>
-    </div>
   </div>
 </template>
 

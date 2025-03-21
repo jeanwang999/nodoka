@@ -58,10 +58,23 @@ aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal" >
 
           <div class="row gx-2">
             <div class="mb-3 col-md-6">
-              <label for="category" class="form-label">分類</label>
+              <!-- <label for="category" class="form-label">分類</label>
               <input type="text" class="form-control" id="category"
               v-model="tempProduct.category"
-                      placeholder="請輸入分類">
+                      placeholder="請輸入分類"> -->
+              <label for="category">類別</label>
+                  <select
+                      class="form-control"
+                      :class="{ 'is-invalid' : failed }"
+                      v-model="tempProduct.category"
+                      >
+                        <option value="" disabled></option>
+                        <option
+                          v-for="item in category"
+                          :key="item"
+                          :value="item"
+                        >{{ item }}</option>
+                      </select>
             </div>
             <div class="mb-3 col-md-6">
               <label for="price" class="form-label">單位</label>
@@ -147,6 +160,7 @@ export default {
     return {
       modal: {},
       tempProduct: {},
+      category: ['K金珠寶', '裸石裸鑽', '設計系列'],
     };
   },
   methods: {
