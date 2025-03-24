@@ -31,7 +31,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal" >
 </div></template>
 
 <script>
-import modalMixin from '../mixins/modalMixin';
+import modalMixin from '../../mixins/modalMixin';
 
 export default {
   props: {

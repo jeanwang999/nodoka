@@ -106,7 +106,7 @@
     </div>
   </template>
 <script>
-import modalMixin from '../mixins/modalMixin';
+import modalMixin from '../../mixins/modalMixin';
 
 export default {
   name: 'orderModal',

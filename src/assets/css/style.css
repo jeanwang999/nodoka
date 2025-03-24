@@ -1544,3 +1544,9 @@ a.btn-link.text-light:after {
   cursor: pointer;
 
 }
+.flex{
+  display: flex;
+}
+.aic{
+  align-items: center
+}

@@ -141,7 +141,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal" >
 
 <script>
 // import Modal from 'bootstrap/js/dist/modal';
-import modalMixin from '../mixins/modalMixin';
+import modalMixin from '../../mixins/modalMixin';
 
 export default {
   props: { // 在內層props 定義”product” 來接收

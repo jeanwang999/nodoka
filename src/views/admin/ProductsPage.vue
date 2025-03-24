@@ -70,9 +70,9 @@
 <script>
 // import LoadingPlugin from 'vue-loading-overlay';
 // import 'vue-loading-overlay/dist/css/index.css';
-import ProductModal from '../components/ProductModal.vue';
-import PaginationCp from '../components/PaginationCp.vue';
-import DelModal from '../components/DelModal.vue';
+import ProductModal from '../../components/admin/ProductModal.vue';
+import PaginationCp from '../../components/PaginationCp.vue';
+import DelModal from '../../components/admin/DelModal.vue';
 // import { currency } from '../methods/filters';
 
 export default {

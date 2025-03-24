@@ -56,9 +56,9 @@
     <Pagination :pages="pagination" @emit-pages="getOrders"></Pagination>
   </template>
 <script>
-import DelModal from '../components/DelModal.vue';
-import OrderModal from '../components/orderModal.vue';
-import Pagination from '../components/PaginationCp.vue';
+import DelModal from '../../components/admin/DelModal.vue';
+import OrderModal from '../../components/admin/orderModal.vue';
+import Pagination from '../../components/PaginationCp.vue';
 
 export default {
   data() {

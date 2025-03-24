@@ -1,10 +1,11 @@
 <template>
     <LoadingCp :active="isLoading"></LoadingCp>
-    <div class="container justify-content-center">
-      <div class="row mt-4">
+    <div class="container ">
+      <div class="row my-5 justify-content-center">
         <!-- 購物車列表 -->
         <div class="col-md-8">
         <div class="sticky-top">
+          <b>>>請確認購物車</b>
           <table class="table align-middle">
             <thead>
               <tr>
@@ -71,54 +72,59 @@
         </div>
 
       </div>
+      <div class="row my-5 justify-content-center">
+        <!-- form 表單 -->
+        <FormCp class="col-md-8 my-6" v-slot="{ errors }"
+              @submit="createOrder">
+          <b>>> 請輸入收件資料</b>
+          <br><br>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <FieldCp id="email" name="email" type="email" class="form-control"
+                    :class="{ 'is-invalid': errors['email'] }"
+                    placeholder="請輸入 Email" rules="email|required"
+                    v-model="form.user.email"></FieldCp>
+            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
+          </div>
 
-      <!-- form 表單 -->
-      <FormCp class="col-md-6 my-6" v-slot="{ errors }"
-            @submit="createOrder">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <FieldCp id="email" name="email" type="email" class="form-control"
-                  :class="{ 'is-invalid': errors['email'] }"
-                  placeholder="請輸入 Email" rules="email|required"
-                  v-model="form.user.email"></FieldCp>
-          <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
-        </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">收件人姓名</label>
+            <FieldCp id="name" name="姓名" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['姓名'] }"
+                    placeholder="請輸入姓名" rules="required"
+                    v-model="form.user.name"></FieldCp>
+            <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
+          </div>
+          <div class="mb-3">
+            <label for="tel" class="form-label">收件人電話</label>
+            <FieldCp id="tel" name="電話" type="tel" class="form-control"
+                    :class="{ 'is-invalid': errors['電話'] }"
+                    placeholder="請輸入電話" rules="required"
+                    v-model="form.user.tel"></FieldCp>
+            <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
+          </div>
 
-        <div class="mb-3">
-          <label for="name" class="form-label">收件人姓名</label>
-          <FieldCp id="name" name="姓名" type="text" class="form-control"
-                  :class="{ 'is-invalid': errors['姓名'] }"
-                  placeholder="請輸入姓名" rules="required"
-                  v-model="form.user.name"></FieldCp>
-          <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
-        </div>
-        <div class="mb-3">
-          <label for="tel" class="form-label">收件人電話</label>
-          <FieldCp id="tel" name="電話" type="tel" class="form-control"
-                  :class="{ 'is-invalid': errors['電話'] }"
-                  placeholder="請輸入電話" rules="required"
-                  v-model="form.user.tel"></FieldCp>
-          <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
-        </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">收件人地址</label>
+            <FieldCp id="address" name="地址" type="text" class="form-control"
+                    :class="{ 'is-invalid': errors['地址'] }"
+                    placeholder="請輸入地址" rules="required"
+                    v-model="form.user.address"></FieldCp>
+            <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
+          </div>
 
-        <div class="mb-3">
-          <label for="address" class="form-label">收件人地址</label>
-          <FieldCp id="address" name="地址" type="text" class="form-control"
-                  :class="{ 'is-invalid': errors['地址'] }"
-                  placeholder="請輸入地址" rules="required"
-                  v-model="form.user.address"></FieldCp>
-          <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
-        </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">留言</label>
+            <textarea name="" id="message" class="form-control" cols="30" rows="10"
+                      v-model="form.message"></textarea>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-dark" @click="createOrder(0)">送出訂單</button>
+          </div>
+        </FormCp>
 
-        <div class="mb-3">
-          <label for="message" class="form-label">留言</label>
-          <textarea name="" id="message" class="form-control" cols="30" rows="10"
-                    v-model="form.message"></textarea>
-        </div>
-        <div class="text-end">
-          <button class="btn btn-danger" @click="createOrder(0)">送出訂單</button>
-        </div>
-      </FormCp>
+      </div>
+
   </div>
 </template>
 

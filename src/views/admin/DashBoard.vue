@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import emitter from '../methods/emitter';
-import ToastMessages from '../components/ToastMessages.vue';
-import Navbar from '../components/Dashboard/NavbarComp.vue';
+import emitter from '../../methods/emitter';
+import ToastMessages from '../../components/ToastMessages.vue';
+import Navbar from '../../components/admin/NavbarComp.vue';
 
 export default {
   components: {
