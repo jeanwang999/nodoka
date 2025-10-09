@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">後台管理</a>
+      <router-link  to="/dashboard/products" class="navbar-brand" href="#">後台管理</router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
     aria-expanded="false" aria-label="Toggle navigation">

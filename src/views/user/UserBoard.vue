@@ -1,201 +1,11 @@
-<style>
-/* ✅ 在 Vue 組件內部引入原本的 CSS */
-@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css");
-@import url("https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css");
-@import url("/src/assets/css/vendor.css");
-@import url("/src/assets/css/style.css");
-/* ✅ Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap");
-</style>
 <!-- eslint-disable max-len -->
 <template>
 <body class="homepage">
-
-<!-- popup 搜尋  -->
-<!-- <div class="search-popup">
-    <div class="search-popup-container">
-
-      <form role="search" method="get" class="form-group" action="">
-        <input type="search" id="search-form" class="form-control border-0 border-bottom"
-          placeholder="Type and press enter" value="" name="s" />
-        <button type="submit" class="search-submit border-0 position-absolute bg-white"
-          style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
-            <use xlink:href="#search"></use>
-          </svg></button>
-      </form>
-
-      <h5 class="cat-list-title">Browse Categories</h5>
-
-      <ul class="cat-list">
-        <li class="cat-list-item">
-          <a href="#" title="Jackets">Jackets</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="T-shirts">T-shirts</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Handbags">Handbags</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Accessories">Accessories</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Cosmetics">Cosmetics</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Dresses">Dresses</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Jumpsuits">Jumpsuits</a>
-        </li>
-      </ul>
-
-    </div>
-  </div> -->
-
-  <!-- slide cart -->
-  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
-  <div class="offcanvas-header justify-content-center">
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="order-md-last">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-primary">購物車</span>
-        <span class="badge bg-primary rounded-pill">{{
-                    carts.length
-                  }}</span>
-      </h4>
-      <ul class="list-group mb-3" v-if="cart.carts">
-        <li class="list-group-item d-flex justify-content-between lh-sm" v-for="item in cart.carts" :key="item.id">
-          <div>
-            <h6 class="my-0">{{ item.product.title }}</h6>
-            <small class="text-body-secondary">
-              {{ item.qty }} {{ item.product.unit }}
-            </small>
-          </div>
-          <span class="text-body-secondary">{{ item.total }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (TWD)</span>
-          <strong>{{ $filters.currency(cart.total) }}
-          </strong>
-        </li>
-      </ul>
-
-      <button class="w-100 btn btn-primary btn-lg" type="submit">
-        <router-link class="nav-link" to="/cart">繼續結帳</router-link>
-        </button>
-    </div>
-  </div>
-</div>
-
-  <!-- nav -->
-  <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
-    <div class="container-fluid">
-      <div class="row justify-content-between align-items-center w-100">
-
-        <div class="col-auto">
-          <router-link to="/home">
-      <div
-        to="/"
-        :style="{ backgroundImage: `url(${headerLogoBg})` }"
-        class="d-block header-logo-img"
-        style="width: 160px; height: 40px; background-repeat: no-repeat; background-size: 100%"></div>
-    </router-link>
-        </div>
-
-        <div class="col-auto">
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-            </div>
-
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
-                <li class="nav-item">
-                  <router-link class="nav-link" to="/products">Product</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link class="nav-link" to="/cart">Cart</router-link>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Page</a>
-                  <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
-                    <li>
-                      <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item item-anchor">Home Layout 2 </a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item item-anchor">Home Layout 3 </a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item item-anchor">Home Layout 4 </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3 col-lg-auto">
-          <ul class="list-unstyled d-flex m-0">
-            <!-- <li class="d-none d-lg-block">
-              <a href="index.html" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
-              </a>
-            </li> -->
-            <li class="d-none d-lg-block">
-              <a href="index.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                aria-controls="offcanvasCart">Cart <span class="cart-count">({{ carts.length }})</span>
-              </a>
-            </li>
-            <!-- <li class="d-lg-none">
-              <a href="#" class="mx-2">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <use xlink:href="#heart"></use>
-                </svg>
-              </a>
-            </li> -->
-            <li class="d-lg-none">
-              <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                aria-controls="offcanvasCart">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <use xlink:href="#cart"></use>
-                </svg>
-              </a>
-            </li>
-            <li class="search-box mx-2">
-              <a href="#search" class="search-button">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <use xlink:href="#search"></use>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-    </div>
-  </nav>
+  <!-- Navbar -->
+  <NavbarUser :cart-updated="cartUpdated"></NavbarUser>
 
   <!-- router-view -->
-  <router-view :key="$route.fullPath" />
+  <router-view :key="$route.fullPath" @update-cart="handleCartUpdate" />
 
   <!-- spacing -->
   <div style="margin: 200px 0"></div>
@@ -345,7 +155,7 @@
   </footer>
 
   <!-- ToastMessages -->
-  <div class="container-fluid mt-3 position-relative">
+  <div class="container-fluid position-relative">
     <ToastMessages></ToastMessages>
   </div>
 
@@ -481,40 +291,40 @@
 
 <script>
 import emitter from '../../methods/emitter';
+import NavbarUser from '../../components/user/NavbarUser.vue';
 import ToastMessages from '../../components/ToastMessages.vue';
 
 export default {
   data() {
     return {
-      headerLogoBg: '/images/nodoka-logo.png',
-      products: [],
-      product: {},
-      cart: {},
-      carts: {},
-      coupon_code: '',
-      status: {
-        loadingItem: '', // 對應品項 id
-      },
+      cartUpdated: false,
     };
   },
-  name: 'YourComponent',
+  // name: 'YourComponent',
   mounted() {
-    // 依序載入 JS，確保 jQuery 先載入，然後載入其他 JS
+    console.log('UserBoard.vue: 開始載入所有 JS 函式庫...');
+    // 確保使用 BASE_URL 修正路徑！
     this.loadScripts([
-      '/js/jquery.min.js',
-      '/js/plugins.js',
-      '/js/SmoothScroll.js',
-      '/js/script.min.js',
+      `${process.env.BASE_URL}js/jquery.min.js`,
+      `${process.env.BASE_URL}js/plugins.js`,
+      `${process.env.BASE_URL}js/SmoothScroll.js`,
+
       'https://cdn.jsdelivr.net/npm/jarallax@1.12.3/dist/jarallax.min.js',
       'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js',
       'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/jquery-colorbox/1.6.4/jquery.colorbox-min.js',
       // 'https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/images/controls.png',
 
+      // 主功能 JS 放在最後
+      `${process.env.BASE_URL}js/script.min.js`, // 修正：確保路徑正確
     ]).then(() => {
-      console.log('所有 JS 已載入！');
+      console.log('✅ UserBoard.vue: 所有 JS 已載入！');
+      // 由於所有 JS 都載入了，給予 200ms 緩衝給 script.min.js 執行 $(document).ready()
+      setTimeout(() => {
+        console.log('✨ 外部動畫初始化完成。');
+      }, 200);
     }).catch((err) => {
-      console.error('載入 JS 失敗:', err);
+      console.error('❌載入 JS 失敗:', err);
     });
   },
   methods: {
@@ -531,94 +341,15 @@ export default {
         })),
       );
     },
-    // 載入 產品
-    getProducts() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      this.isLoading = true;
-      this.$http.get(url).then((response) => {
-        this.products = response.data.products;
-        console.log('products:', response);
-        this.isLoading = false;
-      });
-    },
 
-    getCart() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      this.isLoading = true;
-      this.$http.get(url).then((response) => {
-        console.log(response);
-        this.cart = response.data.data;
-        this.carts = [...response.data.data.carts];
-        this.isLoading = false;
-        console.log('購物車有', this.carts.length, '個商品');
-      });
-    },
-    // getCartList() {
-    //   const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-    //   this.$http.get(url).then((response) => {
-    //     if (response.data.success) {
-    //     }
-    //   });
-    // },
-    updateCart(item) {
-      // console.log(item);
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
-      this.isLoading = true;
-      this.status.loadingItem = item.id; // 當它等於id  btn addcart disable
-      const cart = {
-        product_id: item.product_id,
-        qty: item.qty,
-      };
-      this.$http.put(url, { data: cart }).then((res) => {
-        console.log(res);
-        this.status.loadingItem = '';
-        this.getCart();
-      });
-    },
-    removeCartItem(id) {
-      this.status.loadingItem = id;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
-      this.isLoading = true;
-      this.$http.delete(url).then((response) => {
-        this.$httpMessageState(response, '移除購物車品項');
-        this.status.loadingItem = '';
-        this.getCart();
-        this.isLoading = false;
-      });
-    },
-    addCouponCode() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
-      const coupon = {
-        code: this.coupon_code,
-      };
-      this.isLoading = true;
-      this.$http.post(url, { data: coupon })
-        .then((res) => {
-          console.log(res);
-          this.$httpMessageState(res, '加入優惠券');
-          this.getCart();
-        });
-    },
-    createOrder() {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
-      const order = this.form;
-      this.$http.post(url, { data: order })
-        .then((res) => {
-          console.log(res);
-          this.$httpMessageState(res, '新增訂單');
-          // eslint-disable-next-line prefer-destructuring
-          const orderId = res.data.orderId;
-          console.log(orderId);
-          // 假设这里是你返回的 orderId
-          const checkoutRoute = { name: 'checkout', params: { orderId } };
-          // 要使用指定路由名稱 (物件搭配 name 屬性 )進行頁面跳轉，在路由表也需要定義 name 屬性才可以正確配對。
-
-          this.$router.push(checkoutRoute);
-        });
+    // 即時更新cart
+    handleCartUpdate() {
+      this.cartUpdated = !this.cartUpdated; // 每次切換布林值，讓子元件偵測到變化
     },
   },
   components: {
     ToastMessages,
+    NavbarUser,
   },
   provide() {
     return {
@@ -626,13 +357,16 @@ export default {
     };
   },
   created() {
-    this.getProducts();
-    this.getCart();
   },
 };
 </script>
 
-<style >
-/* @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css'); */
-
+<style>
+/* ✅ 在 Vue 組件內部引入原本的 CSS */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css");
+@import url("https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css");
+@import url("/src/assets/css/vendor.css");
+@import url("/src/assets/css/style.css");
+/* ✅ Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap");
 </style>

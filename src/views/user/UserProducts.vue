@@ -62,7 +62,9 @@
 <script>
 
 export default {
+
   props: ['category'],
+
   data() {
     return {
       products: [],
@@ -72,19 +74,8 @@ export default {
       status: {
         loadingItem: '', // 對應品項 id
       },
-      form: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: '',
-        },
-        message: '',
-      },
-      orderId: '',
       categoryName: '',
       allProducts: [],
-
     };
   },
   methods: {
@@ -128,6 +119,7 @@ export default {
           this.$httpMessageState(res, '加入購物車');
           this.getCart();
           this.isLoading = false;
+          this.$emit('update-cart');
         });
     },
     getCart() {
@@ -154,22 +146,22 @@ export default {
     },
   },
   computed: {
-    filterProduct() {
-      const self = this;
-      // 當為 空值 時，便回傳 全部商品 (有分頁)
-      if (self.categoryName === '') {
-        return self.products;
-      }
-      // 過濾 分類 相同的產品
-      return self.allProducts.filter(
-        (item) => item.category === self.categoryName,
-      );
-    },
+    // 篩選出 分類
     filterCategory() {
-      const self = this;
-      return self.allProducts
+      return this.allProducts
         .map((item) => item.category)
         .filter((item, index, array) => array.indexOf(item) === index);
+    },
+    // 以分類篩選商品
+    filterProduct() {
+      // 當為 空值 時，便回傳 全部商品 (有分頁)
+      if (this.categoryName === '') {
+        return this.products;
+      }
+      // 過濾 分類 相同的產品
+      return this.allProducts.filter(
+        (item) => item.category === this.categoryName,
+      );
     },
   },
   created() {

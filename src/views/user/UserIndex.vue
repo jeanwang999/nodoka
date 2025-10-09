@@ -133,6 +133,7 @@
 
 <script>
 export default {
+  name: 'UserIndex',
   data() {
     return {
       products: [],
@@ -142,48 +143,38 @@ export default {
       status: {
         loadingItem: '', // 對應品項 id
       },
-      form: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: '',
-        },
-        message: '',
-      },
-      orderId: '',
+
     };
   },
-  name: 'UserHomepage',
   mounted() {
-    console.log('✅ UserHomepage.vue 已掛載，開始載入 JS...');
+    console.log('✅ UserIndex.vue 已掛載，開始載入 JS...');
     this.reloadAllScripts();
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      console.log('🔄 Vue Router 進入 UserHomepage，重新載入 JS...');
+      console.log('🔄 Vue Router 進入 UserIndex，重新載入 JS...');
       setTimeout(() => {
         vm.reloadAllScripts();
       }, 300);
     });
   },
+
   methods: {
-    // 載入js
     reloadAllScripts() {
       setTimeout(() => {
         console.log('🔄 檢查 jQuery 是否存在...');
         if (typeof window.jQuery === 'undefined') {
           console.warn('⚠️ jQuery is missing, 重新載入 jQuery 和 Plugins...');
           this.loadScripts([
-            '/js/jquery.min.js',
-            '/js/plugins.js',
-            '/js/script.min.js',
+            `${process.env.BASE_URL}js/jquery.min.js`,
+            `${process.env.BASE_URL}js/plugins.js`,
+            `${process.env.BASE_URL}js/script.min.js`,
           ]);
         } else {
           console.log('✅ jQuery 已載入，載入 Plugins 和 Script...');
           this.loadScripts([
-            '/js/plugins.js',
-            '/js/script.min.js',
+            `${process.env.BASE_URL}js/plugins.js`,
+            `${process.env.BASE_URL}js/script.min.js`,
           ]);
         }
       }, 300);
@@ -228,6 +219,7 @@ export default {
           this.$httpMessageState(res, '加入購物車');
           this.getCart();
           this.isLoading = false;
+          this.$emit('update-cart'); // 告訴父元件要更新
         });
     },
     getCart() {
@@ -237,21 +229,7 @@ export default {
         this.cart = response.data.data;
       });
     },
-    updateCart(item) {
-      // console.log(item);
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
-      this.isLoading = true;
-      this.status.loadingItem = item.id; // 當它等於id  btn addcart disable
-      const cart = {
-        product_id: item.product_id,
-        qty: item.qty,
-      };
-      this.$http.put(url, { data: cart }).then((res) => {
-        console.log(res);
-        this.status.loadingItem = '';
-        this.getCart();
-      });
-    },
+
   },
   created() {
     this.getProducts();

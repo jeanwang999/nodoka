@@ -12,8 +12,9 @@
       <table class="table mt-4">
         <thead>
         <tr>
-          <th>名稱</th>
-          <th>折扣百分比</th>
+          <th>標題</th>
+          <th>優惠碼</th>
+          <th>折扣</th>
           <th>到期日</th>
           <th>是否啟用</th>
           <th>編輯</th>
@@ -22,7 +23,8 @@
         <tbody>
         <tr v-for="(item, key) in coupons" :key="key">
           <td>{{ item.title }}</td>
-          <td>{{ item.percent }}%</td>
+          <td>{{item.code}}</td>
+          <td>{{ item.percent }}折</td>
           <td>{{ $filters.date(item.due_date) }}</td>
           <td>
             <span v-if="item.is_enabled === 1" class="text-success">啟用</span>

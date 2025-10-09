@@ -18,12 +18,16 @@
             </thead>
             <tbody>
             <template v-if="cart.carts">
-              <tr v-for="item in cart.carts" :key="item.id">
-                <td><img :src="`${item.product.imageUrl}`" alt="" style="height: 100px;"></td>
+              <tr v-for="item in cart.carts" :key="item.id" >
+                <td>
+                  <a @click="getProduct(item.product.id)">
+                    <img :src="`${item.product.imageUrl}`" alt="" style="height: 100px;">
+                  </a>
+                </td>
                 <td>
                   {{ item.product.title }}
                   <div class="text-success" v-if="item.coupon">
-                    已套用優惠券
+                    已套用優惠券{{ item.coupon.percent }}折
                   </div>
                 </td>
                 <td>
@@ -36,6 +40,9 @@
                   </div>
                 </td>
                 <td class="text-end">
+                  <small v-if="cart.final_total !== cart.total">
+                    原價 {{ $filters.currency(item.total) }} <br>
+                  </small>
                   <small v-if="cart.final_total !== cart.total" class="text-success">折扣價：</small>
                   {{ $filters.currency(item.final_total) }}
                 </td>
@@ -186,8 +193,10 @@ export default {
         console.log(response);
         this.cart = response.data.data;
         this.isLoading = false;
+        this.$emit('update-cart');
       });
     },
+    // 數量改變時 更新cart
     updateCart(item) {
       // console.log(item);
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
