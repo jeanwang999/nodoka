@@ -8,9 +8,7 @@
       <div class="row justify-content-center">
         <h1 class="section-title text-center mt-4" data-aos="fade-up">New Collections</h1>
         <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci
-            repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum,
-            quibusdam ex repellat eaque!</p>
+          <p>「在珠寶的世界，就連 1mm 的差異也是無法退讓的堅持。」<br><br>Never Settle For Less <br>對 NODOKA 而言不僅是品牌哲學，<br>也是對設計和質感生活不退讓的堅持。 </p>
         </div>
       </div>
       <div class="row">

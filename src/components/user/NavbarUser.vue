@@ -40,12 +40,14 @@
                     aria-haspopup="true" aria-expanded="false">Category</a>
                   <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
                     <li data-bs-dismiss="offcanvas">
-                      <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
+                      <a href="" class="dropdown-item item-anchor">
+                        <router-link class="nav-link" to="/products">全部商品</router-link>
+                      </a>
                     </li>
                   </ul>
                 </li>
                 <li class="nav-item" data-bs-dismiss="offcanvas">
-                  <a class="nav-link" href="#">Contact</a>
+                  <router-link class="nav-link" to="/contact">Contact</router-link>
                 </li>
               </ul>
             </div>

@@ -53,6 +53,10 @@ const routes = [
         name: 'checkout',
         // 要使用指定路由名稱 (物件搭配 name 屬性 )進行頁面跳轉，在路由表也需要定義 name 屬性才可以正確配對。
       },
+      {
+        path: 'contact',
+        component: () => import('../views/user/ContactPage.vue'),
+      },
     ],
   },
 ];
